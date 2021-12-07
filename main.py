@@ -1,8 +1,9 @@
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 from des import *
 from timer_stand import *
 from pomidor import *
+from task_wid import *
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -32,6 +33,11 @@ class Timer_stand(QtWidgets.QWidget):
 
         self.ui.start_button.clicked.connect(self.start)
         self.ui.stop_button.clicked.connect(self.stop)
+
+        self.url = QtCore.QUrl.fromLocalFile("./notification.wav")
+        self.content = QtMultimedia.QMediaContent(self.url)
+        self.player = QtMultimedia.QMediaPlayer()
+        self.player.setMedia(self.content)
 
     def start(self):
         self.ui.label.hide()
@@ -66,6 +72,8 @@ class Timer_stand(QtWidgets.QWidget):
     def stop(self):
         self.timer.stop()
 
+        self.player.play()
+
         self.ui.label.show()
         self.ui.spinBox_min.show()
         self.ui.spinBox_sec.show()
@@ -95,6 +103,11 @@ class Pomidor(QtWidgets.QWidget):
 
         self.podhod_count = 1
 
+        self.url = QtCore.QUrl.fromLocalFile("./notification.wav")
+        self.content = QtMultimedia.QMediaContent(self.url)
+        self.player = QtMultimedia.QMediaPlayer()
+        self.player.setMedia(self.content)
+
     def start(self):
         self.ui.spinBox.hide()
         self.ui.label.hide()
@@ -118,6 +131,7 @@ class Pomidor(QtWidgets.QWidget):
         #self.ui
 
     def stop(self):
+        self.player.play()
         self.timer.stop()
         try:
             self.timer_otdih.stop()
@@ -144,6 +158,7 @@ class Pomidor(QtWidgets.QWidget):
         else:
             print("stop rabota")
             self.timer.stop()
+            self.player.play()
             if self.timer_value_otdih > 0:
                 self.timer_otdih = QtCore.QTimer(self)
                 self.timer_otdih.timeout.connect(
@@ -171,6 +186,7 @@ class Pomidor(QtWidgets.QWidget):
                 self.ui.start_button.click()
 
             else:
+                self.player.play()
                 self.ui.lcdotdih.hide()
                 self.ui.label_rabota.hide()
                 self.ui.label_otdih.hide()
