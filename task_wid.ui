@@ -25,6 +25,175 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QLabel" name="label_task">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>51</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Название задачи:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_task">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>50</y>
+     <width>291</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>32</number>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>160</y>
+     <width>461</width>
+     <height>221</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_description">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>135</y>
+     <width>461</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Описание задачи:</string>
+   </property>
+  </widget>
+  <widget class="QTimeEdit" name="timeEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>410</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_time">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>410</y>
+     <width>171</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Время задачи</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_time">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>291</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Без определенного времени</string>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="dateEdit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>468</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_date">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>498</y>
+     <width>281</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Без определенной даты</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_date">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>470</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Дата задачи</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_create">
+   <property name="geometry">
+    <rect>
+     <x>-2</x>
+     <y>541</y>
+     <width>484</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Создать задачу</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

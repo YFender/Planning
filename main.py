@@ -11,16 +11,22 @@ class MyWin(QtWidgets.QMainWindow):
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
+        self.ui.create_task.triggered.connect(self.create_task)
 
     def timer_stand(self):
         self.w2 = Timer_stand()
         self.w2.show()
 
     def timer_pomidor(self):
-        self.w2 = Pomidor()
-        self.w2.show()
+        self.w3 = Pomidor()
+        self.w3.show()
+
+    def create_task(self):
+        self.w4 = Create_task()
+        self.w4.show()
 
 
 class Timer_stand(QtWidgets.QWidget):
@@ -195,6 +201,18 @@ class Pomidor(QtWidgets.QWidget):
                 self.ui.spinBox.show()
                 self.ui.stop_button.hide()
                 self.ui.start_button.show()
+
+
+class Create_task(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_Form_task()
+        self.ui.setupUi(self)
+
+        self.ui.pushButton_create.clicked.connect(self.create_task)
+
+    def create_task(self):
+        pass
 
 
 if __name__ == "__main__":
