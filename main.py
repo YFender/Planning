@@ -4,6 +4,8 @@ from des import *
 from timer_stand import *
 from pomidor import *
 from task_wid import *
+from datetime import datetime
+import json
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -16,6 +18,8 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
         self.ui.create_task.triggered.connect(self.create_task)
 
+        self.read_tasks()
+
     def timer_stand(self):
         self.w2 = Timer_stand()
         self.w2.show()
@@ -27,6 +31,17 @@ class MyWin(QtWidgets.QMainWindow):
     def create_task(self):
         self.w4 = Create_task()
         self.w4.show()
+
+    def read_tasks(self):
+        try:
+            data = {}
+            data['tasks'] = []
+            with open('tasks.json') as json_file:
+                data = json.load(json_file)
+                for p in data['tasks']:
+                    self.ui.listWidget.addItem(p["task"])
+        except Exception:
+            pass
 
 
 class Timer_stand(QtWidgets.QWidget):
@@ -211,12 +226,51 @@ class Create_task(QtWidgets.QWidget):
 
         self.ui.pushButton_create.clicked.connect(self.create_task)
 
+        self.ui.dateEdit.setDate(datetime.today().date())
+        self.ui.timeEdit.setTime(datetime.today().time())
+
+        self.ui.checkBox_date.stateChanged.connect(self.hide_date)
+        self.ui.checkBox_time.stateChanged.connect(self.hide_time)
+
     def create_task(self):
-        pass
+        data = {}
+        data["tasks"] = []
+        if self.ui.lineEdit_task.text() != "":
+            print(self.ui.timeEdit.date().currentDate().day())
+            data["tasks"].append({
+                "task": f"{self.ui.lineEdit_task.text()}",
+                "time": f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}",
+                "date": f"{self.ui.timeEdit.date().currentDate().day()}.{self.ui.timeEdit.date().currentDate().month()}.{self.ui.timeEdit.date().currentDate().year()}",
+            })
+            with open('tasks.json', 'a') as outfile:
+                json.dump(data, outfile)
+            self.hide()
+            MyWin().read_tasks()
+
+    def hide_date(self):
+        if self.ui.checkBox_date.checkState():
+            self.ui.dateEdit.hide()
+            self.ui.label_date.hide()
+            self.ui.dateEdit.clear()
+        else:
+            self.ui.dateEdit.show()
+            self.ui.label_date.show()
+            self.ui.dateEdit.setDate(datetime.now().date())
+
+    def hide_time(self):
+        if self.ui.checkBox_time.checkState():
+            self.ui.timeEdit.hide()
+            self.ui.label_time.hide()
+            self.ui.timeEdit.clear()
+        else:
+            self.ui.timeEdit.show()
+            self.ui.timeEdit.setTime(datetime.today().time())
+            self.ui.label_time.show()
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()
     myapp.show()
+    sys.exit(app.exec_())
     sys.exit(app.exec_())

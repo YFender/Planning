@@ -21,7 +21,7 @@ class Ui_Form_timer(object):
         self.lcdNumber.setGeometry(QtCore.QRect(0, 160, 481, 141))
         self.lcdNumber.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.lcdNumber.setSmallDecimalPoint(False)
-        self.lcdNumber.setDigitCount(6)
+        self.lcdNumber.setDigitCount(7)
         self.lcdNumber.setObjectName("lcdNumber")
         self.label = QtWidgets.QLabel(Form_timer)
         self.label.setGeometry(QtCore.QRect(0, 180, 480, 61))
