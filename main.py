@@ -8,6 +8,19 @@ from datetime import datetime
 import json
 
 
+try:
+    data = {}
+    data['tasks'] = []
+    with open('tasks.json') as json_file:
+        data = json.load(json_file)
+        print(data["tasks"])
+        #for p in data['tasks']:
+        #print(p)
+        #    self.ui.listWidget.addItem(p["task"])
+except Exception:
+    pass
+
+
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
@@ -33,15 +46,9 @@ class MyWin(QtWidgets.QMainWindow):
         self.w4.show()
 
     def read_tasks(self):
-        try:
-            data = {}
-            data['tasks'] = []
-            with open('tasks.json') as json_file:
-                data = json.load(json_file)
-                for p in data['tasks']:
-                    self.ui.listWidget.addItem(p["task"])
-        except Exception:
-            pass
+        for p in data['tasks']:
+            #print(p)
+            self.ui.listWidget.addItem(p["task"])
 
 
 class Timer_stand(QtWidgets.QWidget):
@@ -233,8 +240,8 @@ class Create_task(QtWidgets.QWidget):
         self.ui.checkBox_time.stateChanged.connect(self.hide_time)
 
     def create_task(self):
-        data = {}
-        data["tasks"] = []
+        #data = {}
+        #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
             print(self.ui.timeEdit.date().currentDate().day())
             data["tasks"].append({
@@ -242,8 +249,8 @@ class Create_task(QtWidgets.QWidget):
                 "time": f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}",
                 "date": f"{self.ui.timeEdit.date().currentDate().day()}.{self.ui.timeEdit.date().currentDate().month()}.{self.ui.timeEdit.date().currentDate().year()}",
             })
-            with open('tasks.json', 'a') as outfile:
-                json.dump(data, outfile)
+            with open("tasks.json", "w") as fin:
+                json.dump(data, fin)
             self.hide()
             MyWin().read_tasks()
 
@@ -272,5 +279,4 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()
     myapp.show()
-    sys.exit(app.exec_())
     sys.exit(app.exec_())
