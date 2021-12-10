@@ -14,7 +14,7 @@ try:
     data['tasks'] = []
     with open('tasks.json') as json_file:
         data = json.load(json_file)
-        print(data["tasks"])
+        #print(data["tasks"])
         #for p in data['tasks']:
         #print(p)
         #    self.ui.listWidget.addItem(p["task"])
@@ -39,7 +39,7 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.ui.listWidget.itemClicked.connect(self.select_task)
 
-        self.ui.pushButton_delete.clicked.connect(self.dialog_del)
+        self.ui.pushButton_delete.clicked.connect(self.delete_task)
 
     def select_task(self):
         self.ui.pushButton_delete.setEnabled(True)
@@ -59,6 +59,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.w4.show()
 
     def read_tasks(self):
+        self.ui.listWidget.clear()
         for p in data['tasks']:
             #print(p)
             self.ui.listWidget.addItem(p["task"])
@@ -66,6 +67,17 @@ class MyWin(QtWidgets.QMainWindow):
     def dialog_del(self):
         self.w2 = Dialog_del()
         self.w2.show()
+
+        Ui_Form_dialog_del().dialogButtonBox.accepted.connect(
+            self.delete_task)
+
+    def delete_task(self):
+        #print(data)
+        #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
+        data["tasks"].pop(self.ui.listWidget.currentRow())
+        #print(data)
+        self.ui.listWidget.clear()
+        self.read_tasks()
 
 
 class Timer_stand(QtWidgets.QWidget):
@@ -268,8 +280,9 @@ class Create_task(QtWidgets.QWidget):
             })
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
-            self.hide()
+            print(data)
             MyWin().read_tasks()
+            self.hide()
 
     def hide_date(self):
         if self.ui.checkBox_date.checkState():
@@ -298,11 +311,7 @@ class Dialog_del(QtWidgets.QWidget):
         self.ui = Ui_Form_dialog_del()
         self.ui.setupUi(self)
 
-        self.ui.dialogButtonBox.accepted.connect(self.delete_task)
-
-    def delete_task(self):
-        #Ui_MainWindow().listWidget.removeItemWidget(Ui_MainWindow().listWidget.currentRow())
-        pass
+        #self.ui.dialogButtonBox.accepted.connect(self.delete_task)
 
 
 if __name__ == "__main__":
