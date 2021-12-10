@@ -61,7 +61,7 @@ class MyWin(QtWidgets.QMainWindow):
     def read_tasks(self):
         self.ui.listWidget.clear()
         for p in data['tasks']:
-            #print(p)
+            #print(p["task"])
             self.ui.listWidget.addItem(p["task"])
 
     def dialog_del(self):
@@ -272,7 +272,6 @@ class Create_task(QtWidgets.QWidget):
         #data = {}
         #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
-            print(self.ui.timeEdit.date().currentDate().day())
             data["tasks"].append({
                 "task": f"{self.ui.lineEdit_task.text()}",
                 "time": f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}",
@@ -280,7 +279,7 @@ class Create_task(QtWidgets.QWidget):
             })
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
-            print(data)
+            #print(data)
             MyWin().read_tasks()
             self.hide()
 
