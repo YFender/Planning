@@ -4,6 +4,7 @@ from des import *
 from timer_stand import *
 from pomidor import *
 from task_wid import *
+from dialog_del import *
 from datetime import datetime
 import json
 
@@ -33,6 +34,18 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.read_tasks()
 
+        self.ui.pushButton_delete.setEnabled(False)
+        self.ui.pushButton_redact.setEnabled(False)
+
+        self.ui.listWidget.itemClicked.connect(self.select_task)
+
+        self.ui.pushButton_delete.clicked.connect(self.dialog_del)
+
+    def select_task(self):
+        self.ui.pushButton_delete.setEnabled(True)
+        self.ui.pushButton_redact.setEnabled(True)
+        print(self.ui.listWidget.currentRow())
+
     def timer_stand(self):
         self.w2 = Timer_stand()
         self.w2.show()
@@ -49,6 +62,10 @@ class MyWin(QtWidgets.QMainWindow):
         for p in data['tasks']:
             #print(p)
             self.ui.listWidget.addItem(p["task"])
+
+    def dialog_del(self):
+        self.w2 = Dialog_del()
+        self.w2.show()
 
 
 class Timer_stand(QtWidgets.QWidget):
@@ -273,6 +290,19 @@ class Create_task(QtWidgets.QWidget):
             self.ui.timeEdit.show()
             self.ui.timeEdit.setTime(datetime.today().time())
             self.ui.label_time.show()
+
+
+class Dialog_del(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_Form_dialog_del()
+        self.ui.setupUi(self)
+
+        self.ui.dialogButtonBox.accepted.connect(self.delete_task)
+
+    def delete_task(self):
+        #Ui_MainWindow().listWidget.removeItemWidget(Ui_MainWindow().listWidget.currentRow())
+        pass
 
 
 if __name__ == "__main__":

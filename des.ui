@@ -43,7 +43,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_redact">
        <property name="text">
         <string>Редактировать</string>
        </property>
@@ -63,7 +63,10 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_delete">
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
        <property name="text">
         <string>Удалить</string>
        </property>
