@@ -161,6 +161,7 @@
      <string>Задача</string>
     </property>
     <addaction name="create_task"/>
+    <addaction name="refresh"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -185,6 +186,11 @@
   <action name="pomidor">
    <property name="text">
     <string>Таймер &quot;Помидор&quot;</string>
+   </property>
+  </action>
+  <action name="refresh">
+   <property name="text">
+    <string>Обновить список (F5)</string>
    </property>
   </action>
  </widget>

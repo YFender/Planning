@@ -31,6 +31,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
         self.ui.create_task.triggered.connect(self.create_task)
+        self.ui.refresh.triggered.connect(self.read_tasks)
 
         self.read_tasks()
 
@@ -55,14 +56,25 @@ class MyWin(QtWidgets.QMainWindow):
         self.w3.show()
 
     def create_task(self):
+        self.app = 
         self.w4 = Create_task()
         self.w4.show()
+
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect()
+        self.timer.start(100)
+
+    def isac(self):
+        if self.w4.isEnabled:
+            print("a")
+        #self.read_tasks()
 
     def read_tasks(self):
         self.ui.listWidget.clear()
         for p in data['tasks']:
-            #print(p["task"])
+            print(p["task"])
             self.ui.listWidget.addItem(p["task"])
+        print("\n")
 
     def dialog_del(self):
         self.w2 = Dialog_del()
@@ -72,11 +84,13 @@ class MyWin(QtWidgets.QMainWindow):
             self.delete_task)
 
     def delete_task(self):
-        #print(data)
+        print(data)
         #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
         data["tasks"].pop(self.ui.listWidget.currentRow())
         #print(data)
         self.ui.listWidget.clear()
+        with open("tasks.json", "w") as fin:
+            json.dump(data, fin)
         self.read_tasks()
 
 
@@ -279,9 +293,8 @@ class Create_task(QtWidgets.QWidget):
             })
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
-            #print(data)
-            MyWin().read_tasks()
-            self.hide()
+                #print(data)
+            self.close()
 
     def hide_date(self):
         if self.ui.checkBox_date.checkState():
