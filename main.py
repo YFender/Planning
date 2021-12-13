@@ -82,14 +82,17 @@ class MyWin(QtWidgets.QMainWindow):
             self.delete_task)
 
     def delete_task(self):
-        print(data)
-        #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
-        data["tasks"].pop(self.ui.listWidget.currentRow())
-        #print(data)
-        self.ui.listWidget.clear()
-        with open("tasks.json", "w") as fin:
-            json.dump(data, fin)
-        self.read_tasks()
+        try:
+            print(data)
+            #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
+            data["tasks"].pop(self.ui.listWidget.currentRow())
+            #print(data)
+            self.ui.listWidget.clear()
+            with open("tasks.json", "w") as fin:
+                json.dump(data, fin)
+            self.read_tasks()
+        except Exception:
+            pass
 
 
 class Timer_stand(QtWidgets.QWidget):
