@@ -56,7 +56,6 @@ class MyWin(QtWidgets.QMainWindow):
         self.w3.show()
 
     def create_task(self):
-        self.app = 
         self.w4 = Create_task()
         self.w4.show()
 
