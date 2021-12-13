@@ -42,6 +42,9 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.ui.pushButton_delete.clicked.connect(self.delete_task)
 
+        self.ui.refresh.setShortcut("f5")
+        self.ui.pushButton_delete.setShortcut("delete")
+
     def select_task(self):
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
@@ -58,10 +61,6 @@ class MyWin(QtWidgets.QMainWindow):
     def create_task(self):
         self.w4 = Create_task()
         self.w4.show()
-
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect()
-        self.timer.start(100)
 
     def isac(self):
         if self.w4.isEnabled:
@@ -293,6 +292,7 @@ class Create_task(QtWidgets.QWidget):
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
                 #print(data)
+
             self.close()
 
     def hide_date(self):
