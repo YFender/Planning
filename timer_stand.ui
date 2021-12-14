@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Form_timer</class>
  <widget class="QWidget" name="Form_timer">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Стандартный таймер</string>
   </property>
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
