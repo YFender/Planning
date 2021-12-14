@@ -106,7 +106,8 @@ class Timer_stand(QtWidgets.QWidget):
         self.ui.start_button.clicked.connect(self.start)
         self.ui.stop_button.clicked.connect(self.stop)
 
-        self.url = QtCore.QUrl.fromLocalFile("./notification.wav")
+        self.url = QtCore.QUrl.fromLocalFile(
+            "./notifications_sounds/notification.wav")
         self.content = QtMultimedia.QMediaContent(self.url)
         self.player = QtMultimedia.QMediaPlayer()
         self.player.setMedia(self.content)
@@ -175,7 +176,8 @@ class Pomidor(QtWidgets.QWidget):
 
         self.podhod_count = 1
 
-        self.url = QtCore.QUrl.fromLocalFile("./notification.wav")
+        self.url = QtCore.QUrl.fromLocalFile(
+            "./notifications_sounds/notification.wav")
         self.content = QtMultimedia.QMediaContent(self.url)
         self.player = QtMultimedia.QMediaPlayer()
         self.player.setMedia(self.content)
