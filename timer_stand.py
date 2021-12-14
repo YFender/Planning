@@ -14,6 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form_timer(object):
     def setupUi(self, Form_timer):
         Form_timer.setObjectName("Form_timer")
+        Form_timer.setWindowModality(QtCore.Qt.NonModal)
         Form_timer.resize(480, 640)
         Form_timer.setMinimumSize(QtCore.QSize(480, 640))
         Form_timer.setMaximumSize(QtCore.QSize(480, 640))
@@ -95,7 +96,7 @@ class Ui_Form_timer(object):
 
     def retranslateUi(self, Form_timer):
         _translate = QtCore.QCoreApplication.translate
-        Form_timer.setWindowTitle(_translate("Form_timer", "Form"))
+        Form_timer.setWindowTitle(_translate("Form_timer", "Стандартный таймер"))
         self.label.setText(_translate("Form_timer", "Задать таймер"))
         self.label_hour.setText(_translate("Form_timer", "часов"))
         self.label_min.setText(_translate("Form_timer", "минут"))

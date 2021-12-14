@@ -86,7 +86,7 @@ class Ui_form_pomidor(object):
 
     def retranslateUi(self, form_pomidor):
         _translate = QtCore.QCoreApplication.translate
-        form_pomidor.setWindowTitle(_translate("form_pomidor", "Form"))
+        form_pomidor.setWindowTitle(_translate("form_pomidor", "Таймер \"Помидор\""))
         self.label.setText(_translate("form_pomidor", "\"помидоров\""))
         self.start_button.setText(_translate("form_pomidor", "Старт"))
         self.stop_button.setText(_translate("form_pomidor", "Стоп"))
