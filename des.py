@@ -9,41 +9,60 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+"""В этом файле прописан только интерфейс, вся логика находится в main.py"""
 
 
 class Ui_MainWindow(object):
+    """функция обьявления всех обьектов в интерфейсе главного окна"""
+
     def setupUi(self, MainWindow):
+        """обьявление главного окна и его характеристик"""
         MainWindow.setObjectName("MainWindow")
+        """размеры окна"""
         MainWindow.resize(800, 600)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
+        """шрифт окна и статус бара (т.к. шрифт не указан, по умолчанию ставится MS Shell Dog)"""
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
         MainWindow.setFont(font)
+        """создание виджета окна"""
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        """horizontalLayoutWidget - виджет, созданный для баланса в расстоянии между обьектами по горизонтали"""
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 539, 781, 31))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pushButton_redact = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_redact = QtWidgets.QPushButton(
+            self.horizontalLayoutWidget)
+        """Кнопка для редактирования задачи (функционал не реализован)"""
         self.pushButton_redact.setObjectName("pushButton_redact")
+        """Добавление кнопки в horizontalLayoutWidget"""
         self.horizontalLayout.addWidget(self.pushButton_redact)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        """spacer - виджет для обеспечения расстояния между виджетами"""
+        spacerItem = QtWidgets.QSpacerItem(
+            40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.pushButton_delete = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        """кнопка для удаления задачи"""
+        self.pushButton_delete = QtWidgets.QPushButton(
+            self.horizontalLayoutWidget)
         self.pushButton_delete.setInputMethodHints(QtCore.Qt.ImhNone)
         self.pushButton_delete.setObjectName("pushButton_delete")
         self.horizontalLayout.addWidget(self.pushButton_delete)
+        """listWidget - виджет для отображения списка задач и взаимодействия с ними"""
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(10, 40, 261, 491))
         self.listWidget.setObjectName("listWidget")
+        """textBrowser - виджет для вывода текста, в данном случае для подробного описания задачи(не реализовано)"""
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(280, 40, 511, 271))
         self.textBrowser.setObjectName("textBrowser")
+        """label - строчка с коротким текстом, в данном контексте используется просто как указатель что есть что"""
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(16, 10, 251, 21))
         font = QtGui.QFont()
@@ -58,10 +77,12 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
+        """calendarWidget - виджет календаря"""
         self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
         self.calendarWidget.setGeometry(QtCore.QRect(280, 320, 511, 211))
         self.calendarWidget.setObjectName("calendarWidget")
         MainWindow.setCentralWidget(self.centralwidget)
+        """обьявление menubar и его инструментов"""
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
@@ -89,9 +110,12 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        """функция присваивания определенного текста  определенному элемента интерфейса"""
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Планировщик задач"))
-        self.pushButton_redact.setText(_translate("MainWindow", "Редактировать"))
+        MainWindow.setWindowTitle(_translate(
+            "MainWindow", "Планировщик задач"))
+        self.pushButton_redact.setText(
+            _translate("MainWindow", "Редактировать"))
         self.pushButton_delete.setText(_translate("MainWindow", "Удалить"))
         self.label.setText(_translate("MainWindow", "Задачи"))
         self.label_2.setText(_translate("MainWindow", "Описание"))

@@ -9,20 +9,27 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+"""В этом файле прописан только интерфейс, вся логика находится в main.py"""
 
 
 class Ui_form_pomidor(object):
+    """функция обьявления всех обьектов в интерфейсе главного окна"""
+
     def setupUi(self, form_pomidor):
+        """обьявление главного окна и его характеристик"""
+
         form_pomidor.setObjectName("form_pomidor")
         form_pomidor.resize(480, 640)
         form_pomidor.setMinimumSize(QtCore.QSize(480, 640))
         form_pomidor.setMaximumSize(QtCore.QSize(480, 640))
+        """label - строчка с коротким текстом, в данном контексте используется просто как указатель что есть что"""
         self.label = QtWidgets.QLabel(form_pomidor)
         self.label.setGeometry(QtCore.QRect(250, 240, 181, 30))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        """spinBox - виджет с выбором числа, в данном случае определяет кол-во 'помидоров' """
         self.spinBox = QtWidgets.QSpinBox(form_pomidor)
         self.spinBox.setGeometry(QtCore.QRect(100, 240, 150, 30))
         font = QtGui.QFont()
@@ -31,24 +38,29 @@ class Ui_form_pomidor(object):
         self.spinBox.setMinimum(1)
         self.spinBox.setMaximum(5)
         self.spinBox.setObjectName("spinBox")
+        """start_button запускает таймер"""
         self.start_button = QtWidgets.QPushButton(form_pomidor)
         self.start_button.setGeometry(QtCore.QRect(-10, 520, 500, 130))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.start_button.setFont(font)
         self.start_button.setObjectName("start_button")
+        """stop_button же останавливает его"""
         self.stop_button = QtWidgets.QPushButton(form_pomidor)
         self.stop_button.setGeometry(QtCore.QRect(-10, 517, 500, 130))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.stop_button.setFont(font)
         self.stop_button.setObjectName("stop_button")
+        """lcdrabota - виджет со старым lcd интерфейсом, в данном случае работает, если таймер в 'фазе работы'"""
         self.lcdrabota = QtWidgets.QLCDNumber(form_pomidor)
         self.lcdrabota.setGeometry(QtCore.QRect(0, 160, 481, 141))
         self.lcdrabota.setObjectName("lcdrabota")
+        """lcdotdih аналогичен lcdrabota, только работает в 'фазе отдыха'"""
         self.lcdotdih = QtWidgets.QLCDNumber(form_pomidor)
         self.lcdotdih.setGeometry(QtCore.QRect(-10, 160, 501, 141))
         self.lcdotdih.setObjectName("lcdotdih")
+        """уведомление о настоящем состоянии таймера"""
         self.label_rabota = QtWidgets.QLabel(form_pomidor)
         self.label_rabota.setGeometry(QtCore.QRect(-10, 330, 480, 131))
         font = QtGui.QFont()
@@ -73,6 +85,7 @@ class Ui_form_pomidor(object):
         self.label_otdih.setFont(font)
         self.label_otdih.setAlignment(QtCore.Qt.AlignCenter)
         self.label_otdih.setObjectName("label_otdih")
+        """label_podhod отображает какой 'помидор' сейчас по счету"""
         self.label_podhod = QtWidgets.QLabel(form_pomidor)
         self.label_podhod.setGeometry(QtCore.QRect(-6, 100, 491, 61))
         font = QtGui.QFont()
@@ -85,8 +98,10 @@ class Ui_form_pomidor(object):
         QtCore.QMetaObject.connectSlotsByName(form_pomidor)
 
     def retranslateUi(self, form_pomidor):
+        """установка текста для определенных обьектов"""
         _translate = QtCore.QCoreApplication.translate
-        form_pomidor.setWindowTitle(_translate("form_pomidor", "Таймер \"Помидор\""))
+        form_pomidor.setWindowTitle(_translate(
+            "form_pomidor", "Таймер \"Помидор\""))
         self.label.setText(_translate("form_pomidor", "\"помидоров\""))
         self.start_button.setText(_translate("form_pomidor", "Старт"))
         self.stop_button.setText(_translate("form_pomidor", "Стоп"))
