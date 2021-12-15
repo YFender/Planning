@@ -26,7 +26,8 @@ class Ui_Form_task(object):
         self.horizontalLayoutWidget = QtWidgets.QWidget(Form_task)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 461, 101))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_task = QtWidgets.QLabel(self.horizontalLayoutWidget)
@@ -50,14 +51,18 @@ class Ui_Form_task(object):
         font.setPointSize(15)
         self.label_description.setFont(font)
         self.label_description.setObjectName("label_description")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_description)
+        self.formLayout.setWidget(
+            0, QtWidgets.QFormLayout.LabelRole, self.label_description)
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.formLayoutWidget)
         self.plainTextEdit.setObjectName("plainTextEdit")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.SpanningRole, self.plainTextEdit)
+        self.formLayout.setWidget(
+            1, QtWidgets.QFormLayout.SpanningRole, self.plainTextEdit)
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(Form_task)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(10, 360, 461, 32))
+        self.horizontalLayoutWidget_2.setGeometry(
+            QtCore.QRect(10, 360, 461, 32))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget_2)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.timeEdit = QtWidgets.QTimeEdit(self.horizontalLayoutWidget_2)
@@ -70,9 +75,11 @@ class Ui_Form_task(object):
         self.label_time.setObjectName("label_time")
         self.horizontalLayout_2.addWidget(self.label_time)
         self.horizontalLayoutWidget_3 = QtWidgets.QWidget(Form_task)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(10, 390, 461, 31))
+        self.horizontalLayoutWidget_3.setGeometry(
+            QtCore.QRect(10, 390, 461, 31))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.checkBox_time = QtWidgets.QCheckBox(self.horizontalLayoutWidget_3)
@@ -82,9 +89,11 @@ class Ui_Form_task(object):
         self.checkBox_time.setObjectName("checkBox_time")
         self.horizontalLayout_3.addWidget(self.checkBox_time)
         self.horizontalLayoutWidget_4 = QtWidgets.QWidget(Form_task)
-        self.horizontalLayoutWidget_4.setGeometry(QtCore.QRect(10, 450, 461, 32))
+        self.horizontalLayoutWidget_4.setGeometry(
+            QtCore.QRect(10, 450, 461, 32))
         self.horizontalLayoutWidget_4.setObjectName("horizontalLayoutWidget_4")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_4)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget_4)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.dateEdit = QtWidgets.QDateEdit(self.horizontalLayoutWidget_4)
@@ -97,9 +106,11 @@ class Ui_Form_task(object):
         self.label_date.setObjectName("label_date")
         self.horizontalLayout_4.addWidget(self.label_date)
         self.horizontalLayoutWidget_5 = QtWidgets.QWidget(Form_task)
-        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(10, 480, 461, 31))
+        self.horizontalLayoutWidget_5.setGeometry(
+            QtCore.QRect(10, 480, 461, 31))
         self.horizontalLayoutWidget_5.setObjectName("horizontalLayoutWidget_5")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget_5)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.checkBox_date = QtWidgets.QCheckBox(self.horizontalLayoutWidget_5)
@@ -115,10 +126,14 @@ class Ui_Form_task(object):
     def retranslateUi(self, Form_task):
         _translate = QtCore.QCoreApplication.translate
         Form_task.setWindowTitle(_translate("Form_task", "Form"))
-        self.pushButton_create.setText(_translate("Form_task", "Создать задачу"))
+        self.pushButton_create.setText(
+            _translate("Form_task", "Создать задачу"))
         self.label_task.setText(_translate("Form_task", "Название задачи:"))
-        self.label_description.setText(_translate("Form_task", "Описание задачи:"))
+        self.label_description.setText(
+            _translate("Form_task", "Описание задачи:"))
         self.label_time.setText(_translate("Form_task", "Время задачи"))
-        self.checkBox_time.setText(_translate("Form_task", "Без определенного времени"))
+        self.checkBox_time.setText(_translate(
+            "Form_task", "Без определенного времени"))
         self.label_date.setText(_translate("Form_task", "Дата задачи"))
-        self.checkBox_date.setText(_translate("Form_task", "Без определенной даты"))
+        self.checkBox_date.setText(_translate(
+            "Form_task", "Без определенной даты"))
