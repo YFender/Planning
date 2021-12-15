@@ -1,3 +1,5 @@
+"""в этом файле прописана логика программы, в остальных .py файлах прописан только интерфейс"""
+import json
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 from des import *
@@ -5,9 +7,9 @@ from timer_stand import *
 from pomidor import *
 from task_wid import *
 from datetime import datetime
-import json
 
-
+"""в качестве базы данных используется файл с json"""
+"""чтение БД задач из файла"""
 try:
     data = {}
     data['tasks'] = []
@@ -22,11 +24,15 @@ except Exception:
 
 
 class MyWin(QtWidgets.QMainWindow):
+    """класс с запуском и управлением главным окном"""
+
     def __init__(self, parent=None):
+        """инициализация и запуск интерфейса"""
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        """инструкции для определенных событий"""
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
         self.ui.create_task.triggered.connect(self.create_task)
@@ -45,42 +51,36 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.pushButton_delete.setShortcut("delete")
 
     def select_task(self):
+        """разблокировка кнопок редактирования и удаления, если выделен элемент с задачей"""
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
-        print(self.ui.listWidget.currentRow())
+        #print(self.ui.listWidget.currentRow())
 
     def timer_stand(self):
+        """запуск стандартного таймера"""
         self.w2 = Timer_stand()
         self.w2.show()
 
     def timer_pomidor(self):
+        """запуска помидорного таймера"""
         self.w3 = Pomidor()
         self.w3.show()
 
     def create_task(self):
+        """запуск окна с созданием задачи"""
         self.w4 = Create_task()
         self.w4.show()
 
-    def isac(self):
-        if self.w4.isEnabled:
-            print("a")
-        #self.read_tasks()
-
     def read_tasks(self):
+        """функция чтения и вывода задач из массива"""
         self.ui.listWidget.clear()
         for p in data['tasks']:
-            print(p["task"])
+            #print(p["task"])
             self.ui.listWidget.addItem(p["task"])
         print("\n")
 
-    def dialog_del(self):
-        self.w2 = Dialog_del()
-        self.w2.show()
-
-        Ui_Form_dialog_del().dialogButtonBox.accepted.connect(
-            self.delete_task)
-
     def delete_task(self):
+        """удаление выбранной задачи"""
         try:
             print(data)
             #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
@@ -92,6 +92,9 @@ class MyWin(QtWidgets.QMainWindow):
             self.read_tasks()
         except Exception:
             pass
+
+
+"""остальные классы имеют аналогичное строение"""
 
 
 class Timer_stand(QtWidgets.QWidget):
