@@ -22,13 +22,14 @@ class Ui_Form_task(object):
         Form_task.resize(480, 640)
         Form_task.setMinimumSize(QtCore.QSize(480, 640))
         Form_task.setMaximumSize(QtCore.QSize(480, 640))
-        """кнопка вызова функции"""
+        """кнопка подтверждения создания задачи"""
         self.pushButton_create = QtWidgets.QPushButton(Form_task)
         self.pushButton_create.setGeometry(QtCore.QRect(-2, 541, 484, 100))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.pushButton_create.setFont(font)
         self.pushButton_create.setObjectName("pushButton_create")
+        """horizontalLayoutWidget - виджет, созданный для баланса в расстоянии между обьектами по горизонтали"""
         self.horizontalLayoutWidget = QtWidgets.QWidget(Form_task)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 461, 101))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
@@ -36,12 +37,14 @@ class Ui_Form_task(object):
             self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
+        """label_task в данном случае играет роль навигатора в программе, указывающий на строку ввода задачи, другие обьекты имеют аналогичные указатели"""
         self.label_task = QtWidgets.QLabel(self.horizontalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_task.setFont(font)
         self.label_task.setObjectName("label_task")
         self.horizontalLayout.addWidget(self.label_task)
+        """lineEdit - виджет для ввода строки, lineEdit_task используется для ввода названия задачи"""
         self.lineEdit_task = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
         self.lineEdit_task.setMaxLength(32)
         self.lineEdit_task.setObjectName("lineEdit_task")
@@ -130,6 +133,7 @@ class Ui_Form_task(object):
         QtCore.QMetaObject.connectSlotsByName(Form_task)
 
     def retranslateUi(self, Form_task):
+        """виджет для присваивания текста виджетам"""
         _translate = QtCore.QCoreApplication.translate
         Form_task.setWindowTitle(_translate("Form_task", "Form"))
         self.pushButton_create.setText(

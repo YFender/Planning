@@ -4,7 +4,6 @@ from des import *
 from timer_stand import *
 from pomidor import *
 from task_wid import *
-from dialog_del import *
 from datetime import datetime
 import json
 

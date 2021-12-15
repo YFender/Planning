@@ -56,7 +56,7 @@ class Ui_Form_timer(object):
         self.spinBox_hour.setMaximum(23)
         self.spinBox_hour.setObjectName("spinBox_hour")
         self.horizontalLayout.addWidget(self.spinBox_hour)
-        """label_hour - строка-указатель на spinBox_hour с подсказкой что есть что, аналогичные есть и у spinBox_min и spinBox_sec"""
+        """label_hour - строка-информатор для spinBox_hour с подсказкой что есть что, аналогичные есть и у spinBox_min и spinBox_sec"""
         self.label_hour = QtWidgets.QLabel(self.horizontalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(15)
