@@ -89,7 +89,7 @@ class MyWin(QtWidgets.QMainWindow):
             self.ui.listWidget.clear()
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
-            self.read_tasks()
+            self.ui.refresh.trigger()
         except Exception:
             pass
 
@@ -299,7 +299,6 @@ class Create_task(QtWidgets.QWidget):
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
                 #print(data)
-
             self.close()
 
     def hide_date(self):
