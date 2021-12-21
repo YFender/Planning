@@ -4,7 +4,7 @@ import configparser
 import darkdetect
 from sys import exit, argv
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
-from des import *
+from des import Ui_MainWindow
 from timer_stand import *
 from pomidor import *
 from task_wid import *
@@ -14,7 +14,6 @@ from locale import getlocale
 config = configparser.ConfigParser()
 try:
     file = open("settings.ini", "r")
-    print(file)
 except Exception:
     print("ASDASD")
     config.add_section("Settings")
