@@ -195,7 +195,10 @@ class Pomidor(QtWidgets.QWidget):
         self.timer_value_otdih = 5*60
         self.podhod_value = self.ui.spinBox.value()
         self.ui.label_podhod.show()
-        self.ui.label_podhod.setText(f'"Помидор" №{self.podhod_count}')
+        if config["Settings"]["Language"] == "Russian_Russia":
+            self.ui.label_podhod.setText(f'"Помидор" №{self.podhod_count}')
+        else:
+            self.ui.label_podhod.setText(f'"Pomodoro" №{self.podhod_count}')
         print(self.podhod_value)
         self.ui.start_button.hide()
         self.ui.stop_button.show()
