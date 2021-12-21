@@ -328,9 +328,6 @@ class Create_task(QtWidgets.QWidget):
             self.ui.timeEdit.setTime(datetime.today().time())
             self.ui.label_time.show()
 
-    def closeEvent(self, event):
-        return super(Create_task, self).closeEvent(event)
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(argv)
