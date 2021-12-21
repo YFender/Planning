@@ -101,24 +101,13 @@ class Ui_form_pomidor(object):
         QtCore.QMetaObject.connectSlotsByName(form_pomidor)
 
     def retranslateUi(self, form_pomidor):
-        if config["Settings"]["Language"] == "Russian_Russia":
-            """установка текста для определенных обьектов"""
-            _translate = QtCore.QCoreApplication.translate
-            form_pomidor.setWindowTitle(_translate(
+        """установка текста для определенных обьектов"""
+        _translate = QtCore.QCoreApplication.translate
+        form_pomidor.setWindowTitle(_translate(
                 "form_pomidor", "Таймер \"Помидор\""))
-            self.label.setText(_translate("form_pomidor", "\"помидоров\""))
-            self.start_button.setText(_translate("form_pomidor", "Старт"))
-            self.stop_button.setText(_translate("form_pomidor", "Стоп"))
-            self.label_rabota.setText(_translate("form_pomidor", "Работа"))
-            self.label_otdih.setText(_translate("form_pomidor", "Отдых"))
-            self.label_podhod.setText(_translate("form_pomidor", "TextLabel"))
-        else:
-            _translate = QtCore.QCoreApplication.translate
-            form_pomidor.setWindowTitle(_translate(
-                "form_pomidor", "Pomodoro timer"))
-            self.label.setText(_translate("form_pomidor", "pomodoros"))
-            self.start_button.setText(_translate("form_pomidor", "Start"))
-            self.stop_button.setText(_translate("form_pomidor", "Stop"))
-            self.label_rabota.setText(_translate("form_pomidor", "Working"))
-            self.label_otdih.setText(_translate("form_pomidor", "Resting"))
-            self.label_podhod.setText(_translate("form_pomidor", "TextLabel"))
+        self.label.setText(_translate("form_pomidor", "\"помидоров\""))
+        self.start_button.setText(_translate("form_pomidor", "Старт"))
+        self.stop_button.setText(_translate("form_pomidor", "Стоп"))
+        self.label_rabota.setText(_translate("form_pomidor", "Работа"))
+        self.label_otdih.setText(_translate("form_pomidor", "Отдых"))
+        self.label_podhod.setText(_translate("form_pomidor", "TextLabel"))

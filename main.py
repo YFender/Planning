@@ -9,7 +9,6 @@ from pomidor import *
 from task_wid import *
 from datetime import datetime
 
-
 """в качестве базы данных используется файл с json"""
 """чтение БД задач из файла"""
 try:
@@ -334,7 +333,7 @@ class Create_task(QtWidgets.QWidget):
             self.ui.label_time.show()
 
 
-class Settings():
+class Settings(QtWidgets.QWidget):
     pass
 
 

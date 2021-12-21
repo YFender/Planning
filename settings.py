@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 import darkdetect
-from locale import getlocale
+from PyQt5.Qt import QLocale
 
 config = ConfigParser()
 try:
@@ -8,7 +8,7 @@ try:
 except Exception:
     print("ASDASD")
     config.add_section("Settings")
-    config.set("Settings", "Language", f"{getlocale()[0]}")
+    config.set("Settings", "Language", f"{QLocale.system().name()}")
     config.set("Settings", "IsSystemDark", f"{darkdetect.isDark()}")
     with open("settings.ini", "w") as file:
         config.write(file)
