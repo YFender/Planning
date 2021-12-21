@@ -114,13 +114,25 @@ class Ui_Form_timer(object):
         QtCore.QMetaObject.connectSlotsByName(Form_timer)
 
     def retranslateUi(self, Form_timer):
-        """присваивание текста определенным обьектам"""
-        _translate = QtCore.QCoreApplication.translate
-        Form_timer.setWindowTitle(_translate(
-            "Form_timer", "Стандартный таймер"))
-        self.label.setText(_translate("Form_timer", "Задать таймер"))
-        self.label_hour.setText(_translate("Form_timer", "часов"))
-        self.label_min.setText(_translate("Form_timer", "минут"))
-        self.label_sec.setText(_translate("Form_timer", "секунд"))
-        self.stop_button.setText(_translate("Form_timer", "Стоп"))
-        self.start_button.setText(_translate("Form_timer", "Старт"))
+        if config["Settings"]["Language"] == "Russian_Russia":
+            """присваивание текста определенным обьектам"""
+            _translate = QtCore.QCoreApplication.translate
+            Form_timer.setWindowTitle(_translate(
+                "Form_timer", "Стандартный таймер"))
+            self.label.setText(_translate("Form_timer", "Задать таймер"))
+            self.label_hour.setText(_translate("Form_timer", "часов"))
+            self.label_min.setText(_translate("Form_timer", "минут"))
+            self.label_sec.setText(_translate("Form_timer", "секунд"))
+            self.stop_button.setText(_translate("Form_timer", "Стоп"))
+            self.start_button.setText(_translate("Form_timer", "Старт"))
+        else:
+            """присваивание текста определенным обьектам"""
+            _translate = QtCore.QCoreApplication.translate
+            Form_timer.setWindowTitle(_translate(
+                "Form_timer", "Default timer"))
+            self.label.setText(_translate("Form_timer", "Set timer"))
+            self.label_hour.setText(_translate("Form_timer", "hours"))
+            self.label_min.setText(_translate("Form_timer", "minutes"))
+            self.label_sec.setText(_translate("Form_timer", "seconds"))
+            self.stop_button.setText(_translate("Form_timer", "Stop"))
+            self.start_button.setText(_translate("Form_timer", "Start"))
