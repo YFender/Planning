@@ -9,6 +9,7 @@
 
 """интерфейс главного окна"""
 from PyQt5 import QtCore, QtGui, QtWidgets
+from locale import getlocale
 """В этом файле прописан только интерфейс, вся логика находится в main.py"""
 
 
@@ -110,18 +111,42 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        """функция присваивания определенного текста  определенному элемента интерфейса"""
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate(
-            "MainWindow", "Планировщик задач"))
-        self.pushButton_redact.setText(
-            _translate("MainWindow", "Редактировать"))
-        self.pushButton_delete.setText(_translate("MainWindow", "Удалить"))
-        self.label.setText(_translate("MainWindow", "Задачи"))
-        self.label_2.setText(_translate("MainWindow", "Описание"))
-        self.menu.setTitle(_translate("MainWindow", "Задача"))
-        self.menu_2.setTitle(_translate("MainWindow", "Таймер"))
-        self.create_task.setText(_translate("MainWindow", "Создать задачу"))
-        self.stand_time.setText(_translate("MainWindow", "Стандартный таймер"))
-        self.pomidor.setText(_translate("MainWindow", "Таймер \"Помидор\""))
-        self.refresh.setText(_translate("MainWindow", "Обновить список (F5)"))
+        if getlocale()[0] == "Russian_Russia":
+            """функция присваивания определенного текста  определенному элемента интерфейса"""
+            _translate = QtCore.QCoreApplication.translate
+            MainWindow.setWindowTitle(_translate(
+                "MainWindow", "Планировщик задач"))
+            self.pushButton_redact.setText(
+                _translate("MainWindow", "Редактировать"))
+            self.pushButton_delete.setText(_translate("MainWindow", "Удалить"))
+            self.label.setText(_translate("MainWindow", "Задачи"))
+            self.label_2.setText(_translate("MainWindow", "Описание"))
+            self.menu.setTitle(_translate("MainWindow", "Задача"))
+            self.menu_2.setTitle(_translate("MainWindow", "Таймер"))
+            self.create_task.setText(_translate(
+                "MainWindow", "Создать задачу"))
+            self.stand_time.setText(_translate(
+                "MainWindow", "Стандартный таймер"))
+            self.pomidor.setText(_translate(
+                "MainWindow", "Таймер \"Помидор\""))
+            self.refresh.setText(_translate(
+                "MainWindow", "Обновить список (F5)"))
+        else:
+            _translate = QtCore.QCoreApplication.translate
+            MainWindow.setWindowTitle(_translate(
+                "MainWindow", "Task manager"))
+            self.pushButton_redact.setText(
+                _translate("MainWindow", "Edit"))
+            self.pushButton_delete.setText(_translate("MainWindow", "Delete"))
+            self.label.setText(_translate("MainWindow", "Tasks"))
+            self.label_2.setText(_translate("MainWindow", "Description"))
+            self.menu.setTitle(_translate("MainWindow", "Task"))
+            self.menu_2.setTitle(_translate("MainWindow", "Timer"))
+            self.create_task.setText(_translate(
+                "MainWindow", "Create task"))
+            self.stand_time.setText(_translate(
+                "MainWindow", "Default timer"))
+            self.pomidor.setText(_translate(
+                "MainWindow", "Pomodoro timer"))
+            self.refresh.setText(_translate(
+                "MainWindow", "Refresh (F5)"))
