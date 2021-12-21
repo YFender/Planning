@@ -1,6 +1,6 @@
 """в этом файле прописана логика программы, в остальных .py файлах прописан только интерфейс"""
 import json
-import sys
+from sys import exit, argv
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 from des import *
 from timer_stand import *
@@ -28,7 +28,7 @@ class MyWin(QtWidgets.QMainWindow):
 
     def __init__(self, parent=None):
         """инициализация и запуск интерфейса"""
-        QtWidgets.QWidget.__init__(self, parent)
+        super(MyWin, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -39,6 +39,8 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.refresh.triggered.connect(self.read_tasks)
 
         self.read_tasks()
+
+        #self.test()
 
         self.ui.pushButton_delete.setEnabled(False)
         self.ui.pushButton_redact.setEnabled(False)
@@ -68,14 +70,14 @@ class MyWin(QtWidgets.QMainWindow):
 
     def create_task(self):
         """запуск окна с созданием задачи"""
-        self.w4 = Create_task()
+        self.w4 = Create_task(self)
         self.w4.show()
 
     def read_tasks(self):
         """функция чтения и вывода задач из массива"""
         self.ui.listWidget.clear()
         for p in data['tasks']:
-            #print(p["task"])
+            print(p["task"])
             self.ui.listWidget.addItem(p["task"])
         print("\n")
 
@@ -274,10 +276,12 @@ class Pomidor(QtWidgets.QWidget):
 
 
 class Create_task(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super(Create_task, self).__init__()
         self.ui = Ui_Form_task()
         self.ui.setupUi(self)
+
+        self.parent = parent
 
         self.ui.pushButton_create.clicked.connect(self.create_task)
 
@@ -286,8 +290,10 @@ class Create_task(QtWidgets.QWidget):
 
         self.ui.checkBox_date.stateChanged.connect(self.hide_date)
         self.ui.checkBox_time.stateChanged.connect(self.hide_time)
+        #self.show()
 
     def create_task(self):
+
         #data = {}
         #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
@@ -299,6 +305,7 @@ class Create_task(QtWidgets.QWidget):
             with open("tasks.json", "w") as fin:
                 json.dump(data, fin)
                 #print(data)
+            self.parent.ui.refresh.trigger()
             self.close()
 
     def hide_date(self):
@@ -321,6 +328,9 @@ class Create_task(QtWidgets.QWidget):
             self.ui.timeEdit.setTime(datetime.today().time())
             self.ui.label_time.show()
 
+    def closeEvent(self, event):
+        return super(Create_task, self).closeEvent(event)
+
 
 class Dialog_del(QtWidgets.QWidget):
     def __init__(self):
@@ -332,7 +342,7 @@ class Dialog_del(QtWidgets.QWidget):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
+    app = QtWidgets.QApplication(argv)
     myapp = MyWin()
     myapp.show()
-    sys.exit(app.exec_())
+    exit(app.exec_())
