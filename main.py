@@ -334,6 +334,10 @@ class Create_task(QtWidgets.QWidget):
             self.ui.label_time.show()
 
 
+class Settings():
+    pass
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(argv)
     myapp = MyWin()

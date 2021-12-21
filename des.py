@@ -89,25 +89,28 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
-        self.menu = QtWidgets.QMenu(self.menubar)
-        self.menu.setObjectName("menu")
-        self.menu_2 = QtWidgets.QMenu(self.menubar)
-        self.menu_2.setObjectName("menu_2")
+        self.menu_task = QtWidgets.QMenu(self.menubar)
+        self.menu_task.setObjectName("menu_task")
+        self.menu_timer = QtWidgets.QMenu(self.menubar)
+        self.menu_timer.setObjectName("menu_timer")
         MainWindow.setMenuBar(self.menubar)
         self.create_task = QtWidgets.QAction(MainWindow)
         self.create_task.setObjectName("create_task")
         self.stand_time = QtWidgets.QAction(MainWindow)
         self.stand_time.setObjectName("stand_time")
+        self.settings = QtWidgets.QAction(MainWindow)
+        self.settings.setObjectName("settings")
         self.pomidor = QtWidgets.QAction(MainWindow)
         self.pomidor.setObjectName("pomidor")
         self.refresh = QtWidgets.QAction(MainWindow)
         self.refresh.setObjectName("refresh")
-        self.menu.addAction(self.create_task)
-        self.menu.addAction(self.refresh)
-        self.menu_2.addAction(self.stand_time)
-        self.menu_2.addAction(self.pomidor)
-        self.menubar.addAction(self.menu.menuAction())
-        self.menubar.addAction(self.menu_2.menuAction())
+        self.menu_task.addAction(self.create_task)
+        self.menu_task.addAction(self.refresh)
+        self.menu_task.addAction(self.settings)
+        self.menu_timer.addAction(self.stand_time)
+        self.menu_timer.addAction(self.pomidor)
+        self.menubar.addAction(self.menu_task.menuAction())
+        self.menubar.addAction(self.menu_timer.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -123,8 +126,8 @@ class Ui_MainWindow(object):
             self.pushButton_delete.setText(_translate("MainWindow", "Удалить"))
             self.label.setText(_translate("MainWindow", "Задачи"))
             self.label_2.setText(_translate("MainWindow", "Описание"))
-            self.menu.setTitle(_translate("MainWindow", "Задача"))
-            self.menu_2.setTitle(_translate("MainWindow", "Таймер"))
+            self.menu_task.setTitle(_translate("MainWindow", "Задача"))
+            self.menu_timer.setTitle(_translate("MainWindow", "Таймер"))
             self.create_task.setText(_translate(
                 "MainWindow", "Создать задачу"))
             self.stand_time.setText(_translate(
@@ -133,6 +136,7 @@ class Ui_MainWindow(object):
                 "MainWindow", "Таймер \"Помидор\""))
             self.refresh.setText(_translate(
                 "MainWindow", "Обновить список (F5)"))
+            self.settings.setText(_translate("MainWindow", "Настройки"))
         else:
             _translate = QtCore.QCoreApplication.translate
             MainWindow.setWindowTitle(_translate(
@@ -140,10 +144,11 @@ class Ui_MainWindow(object):
             self.pushButton_redact.setText(
                 _translate("MainWindow", "Edit"))
             self.pushButton_delete.setText(_translate("MainWindow", "Delete"))
+            self.settings.setText(_translate("MainWindow", "Settings"))
             self.label.setText(_translate("MainWindow", "Tasks"))
             self.label_2.setText(_translate("MainWindow", "Description"))
-            self.menu.setTitle(_translate("MainWindow", "Task"))
-            self.menu_2.setTitle(_translate("MainWindow", "Timer"))
+            self.menu_task.setTitle(_translate("MainWindow", "Task"))
+            self.menu_timer.setTitle(_translate("MainWindow", "Timer"))
             self.create_task.setText(_translate(
                 "MainWindow", "Create task"))
             self.stand_time.setText(_translate(
