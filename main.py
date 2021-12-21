@@ -1,26 +1,13 @@
 """в этом файле прописана логика программы, в остальных .py файлах прописан только интерфейс"""
+from settings import *
 import json
-import configparser
-import darkdetect
 from sys import exit, argv
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
-from des import Ui_MainWindow
+from des import *
 from timer_stand import *
 from pomidor import *
 from task_wid import *
 from datetime import datetime
-from locale import getlocale
-
-config = configparser.ConfigParser()
-try:
-    file = open("settings.ini", "r")
-except Exception:
-    print("ASDASD")
-    config.add_section("Settings")
-    config.set("Settings", "Language", f"{getlocale()[0]}")
-    config.set("Settings", "IsSystemDark", f"{darkdetect.isDark()}")
-    with open("settings.ini", "w") as file:
-        config.write(file)
 
 
 """в качестве базы данных используется файл с json"""
