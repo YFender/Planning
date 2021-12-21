@@ -332,15 +332,6 @@ class Create_task(QtWidgets.QWidget):
         return super(Create_task, self).closeEvent(event)
 
 
-class Dialog_del(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_Form_dialog_del()
-        self.ui.setupUi(self)
-
-        #self.ui.dialogButtonBox.accepted.connect(self.delete_task)
-
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(argv)
     myapp = MyWin()
