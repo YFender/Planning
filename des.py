@@ -9,8 +9,10 @@
 
 """интерфейс главного окна"""
 from PyQt5 import QtCore, QtGui, QtWidgets
-from locale import getlocale
+from configparser import ConfigParser
 """В этом файле прописан только интерфейс, вся логика находится в main.py"""
+config = ConfigParser()
+config.read("settings.ini")
 
 
 class Ui_MainWindow(object):
@@ -111,7 +113,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        if getlocale()[0] == "Russian_Russia":
+        if config["Settings"]["Language"] == "Russian_Russia":
             """функция присваивания определенного текста  определенному элемента интерфейса"""
             _translate = QtCore.QCoreApplication.translate
             MainWindow.setWindowTitle(_translate(
