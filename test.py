@@ -22,6 +22,7 @@ class Demo(QtWidgets.QWidget):
         for i, (text, lang) in enumerate(options):
             self.combo.addItem(text)
             self.combo.setItemData(i, lang)
+            print(lang)
         self.retranslateUi()
 
     @QtCore.pyqtSlot(int)
@@ -36,6 +37,7 @@ class Demo(QtWidgets.QWidget):
     def changeEvent(self, event):
         if event.type() == QtCore.QEvent.LanguageChange:
             self.retranslateUi()
+            print("asdas")
         super(Demo, self).changeEvent(event)
 
     def retranslateUi(self):
