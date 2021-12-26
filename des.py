@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        QtWidgets.QApplication.instance().installTranslator(self.trans)
+        #QtWidgets.QApplication.instance().installTranslator(self.trans)
         """функция присваивания определенного текста  определенному элемента интерфейса"""
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate(
