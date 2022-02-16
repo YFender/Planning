@@ -57,7 +57,9 @@ class MyWin(QtWidgets.QMainWindow):
         """разблокировка кнопок редактирования и удаления, если выделен элемент с задачей"""
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
-        #print(self.ui.listWidget.currentRow())
+        print(self.ui.listWidget.currentItem().text())
+        self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
+
 
     def timer_stand(self):
         """запуск стандартного таймера"""
@@ -302,6 +304,7 @@ class Create_task(QtWidgets.QWidget):
         #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
             data["tasks"].append({
+                "description":f"{self.ui.plainTextEdit.toPlainText()}",
                 "task": f"{self.ui.lineEdit_task.text()}",
                 "time": f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}",
                 "date": f"{self.ui.timeEdit.date().currentDate().day()}.{self.ui.timeEdit.date().currentDate().month()}.{self.ui.timeEdit.date().currentDate().year()}",
@@ -332,6 +335,8 @@ class Create_task(QtWidgets.QWidget):
             self.ui.timeEdit.setTime(datetime.today().time())
             self.ui.label_time.show()
 
+class Redact_task(QtWidgets.QWidget):
+    pass
 
 class Settings(QtWidgets.QWidget):
     pass
