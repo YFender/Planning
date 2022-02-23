@@ -14,7 +14,10 @@ if not os.path.isfile("Tasks.sqlite"):
     conn = sqlite3.connect("Tasks.sqlite")
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE Tasks(TaskID INT, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
+    conn.close()
 
+conn = sqlite3.connect("Tasks.sqlite")
+cursor = conn.cursor()
 """чтение БД задач из файла"""
 
 
@@ -32,7 +35,7 @@ class MyWin(QtWidgets.QMainWindow):
         """инструкции для определенных событий"""
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
-        #self.ui.create_task.triggered.connect(self.create_task)
+        self.ui.create_task.triggered.connect(self.create_task)
         #self.ui.refresh.triggered.connect(self.read_tasks)
 
         #self.read_tasks()
@@ -296,11 +299,11 @@ class Create_task(QtWidgets.QWidget):
 
     def create_task(self):
 
-        #data = {}
+
         #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
-            pass
-
+            cursor.execute(f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', 12, 21 )")
+            conn.commit()
                 #print(data)
             self.parent.ui.refresh.trigger()
             self.close()
