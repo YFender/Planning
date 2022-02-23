@@ -1,6 +1,6 @@
 """в этом файле прописана логика программы, в остальных .py файлах прописан только интерфейс"""
 from settings import *
-import json
+import sqlite3
 from sys import exit, argv
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 from des import *
@@ -8,20 +8,16 @@ from timer_stand import *
 from pomidor import *
 from task_wid import *
 from datetime import datetime
+import os.path
 
-"""в качестве базы данных используется файл с json"""
+if not os.path.isfile("Tasks.sqlite"):
+    conn = sqlite3.connect("Tasks.sqlite")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE Tasks(TaskID INT, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
+
 """чтение БД задач из файла"""
-try:
-    data = {}
-    data['tasks'] = []
-    with open('tasks.json') as json_file:
-        data = json.load(json_file)
-        #print(data["tasks"])
-        #for p in data['tasks']:
-        #print(p)
-        #    self.ui.listWidget.addItem(p["task"])
-except Exception:
-    pass
+
+
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -36,10 +32,10 @@ class MyWin(QtWidgets.QMainWindow):
         """инструкции для определенных событий"""
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
-        self.ui.create_task.triggered.connect(self.create_task)
-        self.ui.refresh.triggered.connect(self.read_tasks)
+        #self.ui.create_task.triggered.connect(self.create_task)
+        #self.ui.refresh.triggered.connect(self.read_tasks)
 
-        self.read_tasks()
+        #self.read_tasks()
 
         #self.test()
 
@@ -303,14 +299,8 @@ class Create_task(QtWidgets.QWidget):
         #data = {}
         #data["tasks"] = []
         if self.ui.lineEdit_task.text() != "":
-            data["tasks"].append({
-                "description":f"{self.ui.plainTextEdit.toPlainText()}",
-                "task": f"{self.ui.lineEdit_task.text()}",
-                "time": f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}",
-                "date": f"{self.ui.timeEdit.date().currentDate().day()}.{self.ui.timeEdit.date().currentDate().month()}.{self.ui.timeEdit.date().currentDate().year()}",
-            })
-            with open("tasks.json", "w") as fin:
-                json.dump(data, fin)
+            pass
+
                 #print(data)
             self.parent.ui.refresh.trigger()
             self.close()
