@@ -13,7 +13,7 @@ import os.path
 if not os.path.isfile("Tasks.sqlite"):
     conn = sqlite3.connect("Tasks.sqlite")
     cursor = conn.cursor()
-    cursor.execute("CREATE TABLE Tasks(TaskID INT, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
+    cursor.execute("CREATE TABLE Tasks(TaskID INTEGER PRIMARY KEY, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
     conn.close()
 
 conn = sqlite3.connect("Tasks.sqlite")
@@ -36,9 +36,9 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.stand_time.triggered.connect(self.timer_stand)
         self.ui.pomidor.triggered.connect(self.timer_pomidor)
         self.ui.create_task.triggered.connect(self.create_task)
-        #self.ui.refresh.triggered.connect(self.read_tasks)
+        self.ui.refresh.triggered.connect(self.read_tasks)
 
-        #self.read_tasks()
+        self.read_tasks()
 
         #self.test()
 
@@ -56,8 +56,14 @@ class MyWin(QtWidgets.QMainWindow):
         """разблокировка кнопок редактирования и удаления, если выделен элемент с задачей"""
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
-        print(self.ui.listWidget.currentItem().text())
-        self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
+        #print(self.ui.listWidget.currentRow())
+        cursor.execute(f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow()+1}")
+        data = cursor.fetchall()
+        self.ui.textBrowser.setText(data[0][2])
+        print(data)
+        print(data[0][2])
+        #print(result[self.ui.listWidget.currentRow()])
+        #self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
 
 
     def timer_stand(self):
@@ -78,21 +84,26 @@ class MyWin(QtWidgets.QMainWindow):
     def read_tasks(self):
         """функция чтения и вывода задач из массива"""
         self.ui.listWidget.clear()
-        for p in data['tasks']:
-            print(p["task"])
-            self.ui.listWidget.addItem(p["task"])
+        cursor.execute("SELECT TaskName FROM Tasks ")
+        result = cursor.fetchall()
+        #print(result)
+        for i in result:
+            print(i)
+            self.ui.listWidget.addItem(i[0])
         print("\n")
 
     def delete_task(self):
         """удаление выбранной задачи"""
         try:
-            print(data)
             #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
-            data["tasks"].pop(self.ui.listWidget.currentRow())
+            deletedid = self.ui.listWidget.currentRow()+1
+            cursor.execute(f"DELETE FROM Tasks WHERE TaskID = {deletedid}")
+            conn.commit()
+            cursor.execute(f"UPDATE Tasks SET TaskID = TaskID - 1 WHERE TaskID > {deletedid}")
+            conn.commit()
             #print(data)
             self.ui.listWidget.clear()
-            with open("tasks.json", "w") as fin:
-                json.dump(data, fin)
+
             self.ui.refresh.trigger()
         except Exception:
             pass
