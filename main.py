@@ -20,7 +20,8 @@ conn = sqlite3.connect("Tasks.sqlite")
 cursor = conn.cursor()
 """чтение БД задач из файла"""
 
-
+print(datetime.today().date())
+print(datetime.today().time())
 
 
 class MyWin(QtWidgets.QMainWindow):
@@ -49,7 +50,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.listWidget.itemClicked.connect(self.select_task)
 
         self.ui.pushButton_delete.clicked.connect(self.delete_task)
-        self.ui.pushButton_redact.clicked.connect(self.create_task)
+        self.ui.pushButton_redact.clicked.connect(self.redact_task)
 
         self.ui.refresh.setShortcut("f5")
         self.ui.pushButton_delete.setShortcut("delete")
@@ -93,6 +94,10 @@ class MyWin(QtWidgets.QMainWindow):
             print(i)
             self.ui.listWidget.addItem(i[0])
         print("\n")
+
+    def redact_task(self):
+        self.w5 = Redact_task(self)
+        self.w5.show()
 
     def delete_task(self):
         """удаление выбранной задачи"""
@@ -314,8 +319,20 @@ class Create_task(QtWidgets.QWidget):
 
 
         #data["tasks"] = []
+        if not self.ui.checkBox_date.isChecked():
+            self.date = self.ui.timeEdit.date()
+        #    self.date = f"{self.ui.dateEdit.date().day()}.{self.ui.dateEdit.date().month()}.{self.ui.dateEdit.date().year()}"
+        else:
+            self.date = "Null"
+
+        if not self.ui.checkBox_time.isChecked():
+            self.time = self.ui.dateEdit.date()
+            self.time = f"{self.ui.timeEdit.time().hour()}:{self.ui.timeEdit.time().minute()}:0.0"
+        else:
+            self.time = "Null"
+
         if self.ui.lineEdit_task.text() != "":
-            cursor.execute(f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', 12, 21 )")
+            cursor.execute(f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', '{self.time}', '{self.date}' )")
             conn.commit()
                 #print(data)
             self.parent.ui.refresh.trigger()
@@ -343,11 +360,33 @@ class Create_task(QtWidgets.QWidget):
 
 class Redact_task(QtWidgets.QWidget):
     def __init__(self, parent=None):
-        super(Create_task, self).__init__()
+        super(Redact_task, self).__init__()
         self.ui = Ui_Form_task()
-        self.ui.Form_task.setWindowTitle("Редактировать задачу")
         self.ui.setupUi(self)
 
+        self.ui.pushButton_create.setText("Редактировать задачу")
+
+        self.parent = parent
+
+        print(self.parent.ui.listWidget.currentRow()+1)
+        cursor.execute(f"SELECT * FROM Tasks WHERE TaskID = {self.parent.ui.listWidget.currentRow()+1}")
+        data = cursor.fetchall()
+        print(data)
+
+        self.ui.plainTextEdit.setPlainText(data[0][2])
+        self.ui.lineEdit_task.setText(data[0][1])
+
+        if not data[0][3] == "Null":
+            pass
+            self.ui.timeEdit.setTime(data[0][3])
+            #self.ui.timeEdit.setTime(f"{int(data[0][3].replace(':',''))/100}:{int(data[0][3].replace(':',''))%100}")
+        else:
+            self.ui.checkBox_time.setEnabled(True)
+        if not data[0][4] == "Null":
+            pass
+            #self.ui.dateEdit.setDate(data[0][4])
+        else:
+            self.ui.checkBox_date.setEnabled(True)
 
 
 class Settings(QtWidgets.QWidget):
