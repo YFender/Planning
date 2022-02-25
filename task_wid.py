@@ -138,7 +138,7 @@ class Ui_Form_task(object):
     def retranslateUi(self, Form_task):
         """виджет для присваивания текста виджетам"""
         _translate = QtCore.QCoreApplication.translate
-        Form_task.setWindowTitle(_translate("Form_task", "Form"))
+        Form_task.setWindowTitle(_translate("Form_task", "Создать задачу"))
         self.pushButton_create.setText(
             _translate("Form_task", "Создать задачу"))
         self.label_task.setText(_translate("Form_task", "Название задачи:"))

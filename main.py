@@ -38,6 +38,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.create_task.triggered.connect(self.create_task)
         self.ui.refresh.triggered.connect(self.read_tasks)
 
+
         self.read_tasks()
 
         #self.test()
@@ -48,6 +49,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.listWidget.itemClicked.connect(self.select_task)
 
         self.ui.pushButton_delete.clicked.connect(self.delete_task)
+        self.ui.pushButton_redact.clicked.connect(self.create_task)
 
         self.ui.refresh.setShortcut("f5")
         self.ui.pushButton_delete.setShortcut("delete")
@@ -340,7 +342,13 @@ class Create_task(QtWidgets.QWidget):
             self.ui.label_time.show()
 
 class Redact_task(QtWidgets.QWidget):
-    pass
+    def __init__(self, parent=None):
+        super(Create_task, self).__init__()
+        self.ui = Ui_Form_task()
+        self.ui.Form_task.setWindowTitle("Редактировать задачу")
+        self.ui.setupUi(self)
+
+
 
 class Settings(QtWidgets.QWidget):
     pass
