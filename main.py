@@ -13,7 +13,8 @@ import os.path
 if not os.path.isfile("Tasks.sqlite"):
     conn = sqlite3.connect("Tasks.sqlite")
     cursor = conn.cursor()
-    cursor.execute("CREATE TABLE Tasks(TaskID INTEGER PRIMARY KEY, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
+    cursor.execute(
+        "CREATE TABLE Tasks(TaskID INTEGER PRIMARY KEY, TaskName VARCHAR(20) NOT NULL, Description VARCHAR(20) NOT NULL, Time TIME, Date DATE)")
     conn.close()
 
 conn = sqlite3.connect("Tasks.sqlite")
@@ -39,7 +40,6 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.create_task.triggered.connect(self.create_task)
         self.ui.refresh.triggered.connect(self.read_tasks)
 
-
         self.read_tasks()
 
         #self.test()
@@ -60,14 +60,14 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
         #print(self.ui.listWidget.currentRow())
-        cursor.execute(f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow()+1}")
+        cursor.execute(
+            f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow()+1}")
         data = cursor.fetchall()
         self.ui.textBrowser.setText(data[0][2])
         print(data)
         print(data[0][2])
         #print(result[self.ui.listWidget.currentRow()])
         #self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
-
 
     def timer_stand(self):
         """запуск стандартного таймера"""
@@ -106,7 +106,8 @@ class MyWin(QtWidgets.QMainWindow):
             deletedid = self.ui.listWidget.currentRow()+1
             cursor.execute(f"DELETE FROM Tasks WHERE TaskID = {deletedid}")
             conn.commit()
-            cursor.execute(f"UPDATE Tasks SET TaskID = TaskID - 1 WHERE TaskID > {deletedid}")
+            cursor.execute(
+                f"UPDATE Tasks SET TaskID = TaskID - 1 WHERE TaskID > {deletedid}")
             conn.commit()
             #print(data)
             self.ui.listWidget.clear()
@@ -317,7 +318,6 @@ class Create_task(QtWidgets.QWidget):
 
     def create_task(self):
 
-
         #data["tasks"] = []
         if not self.ui.checkBox_date.isChecked():
             self.date = self.ui.timeEdit.date()
@@ -332,9 +332,10 @@ class Create_task(QtWidgets.QWidget):
             self.time = "Null"
 
         if self.ui.lineEdit_task.text() != "":
-            cursor.execute(f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', '{self.time}', '{self.date}' )")
+            cursor.execute(
+                f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', '{self.time}', '{self.date}' )")
             conn.commit()
-                #print(data)
+            #print(data)
             self.parent.ui.refresh.trigger()
             self.close()
 
@@ -358,6 +359,7 @@ class Create_task(QtWidgets.QWidget):
             self.ui.timeEdit.setTime(datetime.today().time())
             self.ui.label_time.show()
 
+
 class Redact_task(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(Redact_task, self).__init__()
@@ -369,7 +371,8 @@ class Redact_task(QtWidgets.QWidget):
         self.parent = parent
 
         print(self.parent.ui.listWidget.currentRow()+1)
-        cursor.execute(f"SELECT * FROM Tasks WHERE TaskID = {self.parent.ui.listWidget.currentRow()+1}")
+        cursor.execute(
+            f"SELECT * FROM Tasks WHERE TaskID = {self.parent.ui.listWidget.currentRow()+1}")
         data = cursor.fetchall()
         print(data)
 
