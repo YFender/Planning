@@ -65,9 +65,10 @@ class MyWin(QtWidgets.QMainWindow):
         cursor.execute(
             f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow() + 1}")
         data = cursor.fetchone()
-        self.ui.textBrowser.setText(data[0][2])
+        self.task_id = data[0]
+        self.ui.textBrowser.setText(data[2])
         print(data)
-        print(data[0][2])
+        print(data[2])
         # print(result[self.ui.listWidget.currentRow()])
         # self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
 
@@ -84,6 +85,7 @@ class MyWin(QtWidgets.QMainWindow):
     def create_task(self):
         """запуск окна с созданием задачи"""
         self.w4 = Create_task(self)
+        self.setEnabled(False)
         self.w4.show()
 
     def read_tasks(self):
@@ -99,6 +101,7 @@ class MyWin(QtWidgets.QMainWindow):
 
     def redact_task(self):
         self.w5 = Redact_task(self)
+        self.setEnabled(False)
         self.w5.show()
 
     def delete_task(self):
@@ -339,7 +342,10 @@ class Create_task(QtWidgets.QWidget):
             conn.commit()
             # print(data)
             self.parent.ui.refresh.trigger()
+            self.parent.setEnabled(True)
             self.close()
+    def closeEvent(self, a0: QtGui.QCloseEvent):
+        self.parent.setEnabled(True)
 
     def hide_date(self):
         if self.ui.checkBox_date.checkState():
@@ -380,24 +386,32 @@ class Redact_task(QtWidgets.QWidget):
             data = cursor.fetchone()
             print(data)
 
-            self.ui.plainTextEdit.setPlainText(data[0][2])
-            self.ui.lineEdit_task.setText(data[0][1])
+            self.ui.plainTextEdit.setPlainText(data[2])
+            self.ui.lineEdit_task.setText(data[1])
 
-            if not data[0][3] == "Null":
+            if not data[3] == "Null":
                 pass
                 # self.ui.timeEdit.setTime(data[0][3])
                 # self.ui.timeEdit.setTime(f"{int(data[0][3].replace(':',''))/100}:{int(data[0][3].replace(':',''))%100}")
             else:
                 self.ui.checkBox_time.setEnabled(True)
-            if not data[0][4] == "Null":
+            if not data[4] == "Null":
                 pass
                 # self.ui.dateEdit.setDate(data[0][4])
             else:
                 self.ui.checkBox_date.setEnabled(True)
 
         def redact_task(self):
+            cursor.execute(f'UPDATE Tasks SET TaskName = "{self.ui.lineEdit_task.text()}", Description = "{self.ui.plainTextEdit.toPlainText()}" WHERE TaskID = {self.parent.task_id}')
+            conn.commit()
+            self.parent.setEnabled(True)
+            self.parent.ui.click.refresh()
+            self.close()
+
             pass
 
+        def closeEvent(self, a0: QtGui.QCloseEvent):
+            self.parent.setEnabled(True)
     except Exception as ex:
         print(ex)
 
