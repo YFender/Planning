@@ -1,14 +1,16 @@
 """в этом файле прописана логика программы, в остальных .py файлах прописан только интерфейс"""
-from settings import *
-import sqlite3
-from sys import exit, argv
-from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
-from des import *
-from timer_stand import *
-from pomidor import *
-from task_wid import *
-from datetime import datetime
 import os.path
+import sqlite3
+from datetime import datetime
+from sys import exit, argv
+
+from PyQt5 import QtMultimedia
+
+from des import *
+from pomidor import *
+from settings import *
+from task_wid import *
+from timer_stand import *
 
 if not os.path.isfile("Tasks.sqlite"):
     conn = sqlite3.connect("Tasks.sqlite")
@@ -42,7 +44,7 @@ class MyWin(QtWidgets.QMainWindow):
 
         self.read_tasks()
 
-        #self.test()
+        # self.test()
 
         self.ui.pushButton_delete.setEnabled(False)
         self.ui.pushButton_redact.setEnabled(False)
@@ -59,15 +61,15 @@ class MyWin(QtWidgets.QMainWindow):
         """разблокировка кнопок редактирования и удаления, если выделен элемент с задачей"""
         self.ui.pushButton_delete.setEnabled(True)
         self.ui.pushButton_redact.setEnabled(True)
-        #print(self.ui.listWidget.currentRow())
+        # print(self.ui.listWidget.currentRow())
         cursor.execute(
-            f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow()+1}")
-        data = cursor.fetchall()
+            f"SELECT * FROM Tasks WHERE TaskID = {self.ui.listWidget.currentRow() + 1}")
+        data = cursor.fetchone()
         self.ui.textBrowser.setText(data[0][2])
         print(data)
         print(data[0][2])
-        #print(result[self.ui.listWidget.currentRow()])
-        #self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
+        # print(result[self.ui.listWidget.currentRow()])
+        # self.ui.textBrowser.setText(data["tasks"][self.ui.listWidget.currentRow()]["description"])
 
     def timer_stand(self):
         """запуск стандартного таймера"""
@@ -89,7 +91,7 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.listWidget.clear()
         cursor.execute("SELECT TaskName FROM Tasks ")
         result = cursor.fetchall()
-        #print(result)
+        # print(result)
         for i in result:
             print(i)
             self.ui.listWidget.addItem(i[0])
@@ -102,14 +104,14 @@ class MyWin(QtWidgets.QMainWindow):
     def delete_task(self):
         """удаление выбранной задачи"""
         try:
-            #self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
-            deletedid = self.ui.listWidget.currentRow()+1
+            # self.ui.listWidget.removeItemWidget(self.ui.listWidget.takeItem(row))
+            deletedid = self.ui.listWidget.currentRow() + 1
             cursor.execute(f"DELETE FROM Tasks WHERE TaskID = {deletedid}")
             conn.commit()
             cursor.execute(
                 f"UPDATE Tasks SET TaskID = TaskID - 1 WHERE TaskID > {deletedid}")
             conn.commit()
-            #print(data)
+            # print(data)
             self.ui.listWidget.clear()
 
             self.ui.refresh.trigger()
@@ -149,11 +151,11 @@ class Timer_stand(QtWidgets.QWidget):
         self.ui.stop_button.show()
 
         self.timer_value = self.ui.spinBox_hour.value(
-        )*60*60+self.ui.spinBox_min.value()*60+self.ui.spinBox_sec.value()
+        ) * 60 * 60 + self.ui.spinBox_min.value() * 60 + self.ui.spinBox_sec.value()
 
         self.ui.lcdNumber.show()
         self.ui.lcdNumber.display(
-            f"{self.timer_value//3600}:{(self.timer_value//60)%60}:{self.timer_value%60}")
+            f"{self.timer_value // 3600}:{(self.timer_value // 60) % 60}:{self.timer_value % 60}")
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(lambda: self.timer_proc())
@@ -163,7 +165,7 @@ class Timer_stand(QtWidgets.QWidget):
         if self.timer_value > 0:
             self.timer_value -= 1
             self.ui.lcdNumber.display(
-                f"{self.timer_value//3600}:{(self.timer_value//60)%60}:{self.timer_value%60}")
+                f"{self.timer_value // 3600}:{(self.timer_value // 60) % 60}:{self.timer_value % 60}")
         else:
             self.ui.stop_button.click()
 
@@ -210,8 +212,8 @@ class Pomidor(QtWidgets.QWidget):
     def start(self):
         self.ui.spinBox.hide()
         self.ui.label.hide()
-        self.timer_value_rab = 25*60
-        self.timer_value_otdih = 5*60
+        self.timer_value_rab = 25 * 60
+        self.timer_value_otdih = 5 * 60
         self.podhod_value = self.ui.spinBox.value()
         self.ui.label_podhod.show()
         if config["Settings"]["Language"] == "Russian_Russia":
@@ -221,16 +223,16 @@ class Pomidor(QtWidgets.QWidget):
         print(self.podhod_value)
         self.ui.start_button.hide()
         self.ui.stop_button.show()
-        #print(self.podhod)
+        # print(self.podhod)
         self.ui.lcdrabota.display(
-            f"{self.timer_value_rab//60}:{self.timer_value_rab%60}")
+            f"{self.timer_value_rab // 60}:{self.timer_value_rab % 60}")
         self.ui.lcdrabota.show()
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.timer_proc_rab)
         self.timer.start(1000)
-        #self.timer_proc(timer_value)
-        #self.ui
+        # self.timer_proc(timer_value)
+        # self.ui
 
     def stop(self):
         self.player.play()
@@ -256,7 +258,7 @@ class Pomidor(QtWidgets.QWidget):
             self.timer_value_rab -= 1
             self.ui.lcdrabota.show()
             self.ui.lcdrabota.display(
-                f"{self.timer_value_rab//60}:{self.timer_value_rab%60}")
+                f"{self.timer_value_rab // 60}:{self.timer_value_rab % 60}")
         else:
             print("stop rabota")
             self.timer.stop()
@@ -275,14 +277,14 @@ class Pomidor(QtWidgets.QWidget):
             self.ui.lcdrabota.hide()
             self.ui.lcdotdih.show()
             self.ui.lcdotdih.display(
-                f"{self.timer_value_otdih//60}:{self.timer_value_otdih%60}")
+                f"{self.timer_value_otdih // 60}:{self.timer_value_otdih % 60}")
         else:
             print("stop otdih")
             self.timer_otdih.stop()
             print(self.timer_otdih.isActive())
             if self.podhod_value > 1:
-                self.ui.spinBox.setValue(self.ui.spinBox.value()-1)
-                #self.timer_proc_rab()
+                self.ui.spinBox.setValue(self.ui.spinBox.value() - 1)
+                # self.timer_proc_rab()
                 self.ui.lcdotdih.hide()
                 self.podhod_count += 1
                 self.ui.start_button.click()
@@ -314,11 +316,11 @@ class Create_task(QtWidgets.QWidget):
 
         self.ui.checkBox_date.stateChanged.connect(self.hide_date)
         self.ui.checkBox_time.stateChanged.connect(self.hide_time)
-        #self.show()
+        # self.show()
 
     def create_task(self):
 
-        #data["tasks"] = []
+        # data["tasks"] = []
         if not self.ui.checkBox_date.isChecked():
             self.date = self.ui.timeEdit.date()
         #    self.date = f"{self.ui.dateEdit.date().day()}.{self.ui.dateEdit.date().month()}.{self.ui.dateEdit.date().year()}"
@@ -335,7 +337,7 @@ class Create_task(QtWidgets.QWidget):
             cursor.execute(
                 f"INSERT INTO Tasks VALUES (Null, '{self.ui.lineEdit_task.text()}', '{self.ui.plainTextEdit.toPlainText()}', '{self.time}', '{self.date}' )")
             conn.commit()
-            #print(data)
+            # print(data)
             self.parent.ui.refresh.trigger()
             self.close()
 
@@ -361,35 +363,43 @@ class Create_task(QtWidgets.QWidget):
 
 
 class Redact_task(QtWidgets.QWidget):
-    def __init__(self, parent=None):
-        super(Redact_task, self).__init__()
-        self.ui = Ui_Form_task()
-        self.ui.setupUi(self)
+    try:
+        def __init__(self, parent=None):
+            super(Redact_task, self).__init__()
+            self.ui = Ui_Form_task()
+            self.ui.setupUi(self)
 
-        self.ui.pushButton_create.setText("Редактировать задачу")
+            self.ui.pushButton_create.setText("Редактировать задачу")
+            self.ui.pushButton_create.clicked.connect(self.redact_task)
 
-        self.parent = parent
+            self.parent = parent
 
-        print(self.parent.ui.listWidget.currentRow()+1)
-        cursor.execute(
-            f"SELECT * FROM Tasks WHERE TaskID = {self.parent.ui.listWidget.currentRow()+1}")
-        data = cursor.fetchall()
-        print(data)
+            print(self.parent.ui.listWidget.currentRow() + 1)
+            cursor.execute(
+                f"SELECT * FROM Tasks WHERE TaskID = {self.parent.ui.listWidget.currentRow() + 1}")
+            data = cursor.fetchone()
+            print(data)
 
-        self.ui.plainTextEdit.setPlainText(data[0][2])
-        self.ui.lineEdit_task.setText(data[0][1])
+            self.ui.plainTextEdit.setPlainText(data[0][2])
+            self.ui.lineEdit_task.setText(data[0][1])
 
-        if not data[0][3] == "Null":
+            if not data[0][3] == "Null":
+                pass
+                # self.ui.timeEdit.setTime(data[0][3])
+                # self.ui.timeEdit.setTime(f"{int(data[0][3].replace(':',''))/100}:{int(data[0][3].replace(':',''))%100}")
+            else:
+                self.ui.checkBox_time.setEnabled(True)
+            if not data[0][4] == "Null":
+                pass
+                # self.ui.dateEdit.setDate(data[0][4])
+            else:
+                self.ui.checkBox_date.setEnabled(True)
+
+        def redact_task(self):
             pass
-            self.ui.timeEdit.setTime(data[0][3])
-            #self.ui.timeEdit.setTime(f"{int(data[0][3].replace(':',''))/100}:{int(data[0][3].replace(':',''))%100}")
-        else:
-            self.ui.checkBox_time.setEnabled(True)
-        if not data[0][4] == "Null":
-            pass
-            #self.ui.dateEdit.setDate(data[0][4])
-        else:
-            self.ui.checkBox_date.setEnabled(True)
+
+    except Exception as ex:
+        print(ex)
 
 
 class Settings(QtWidgets.QWidget):
